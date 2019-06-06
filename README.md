@@ -1,6 +1,7 @@
 # EarTrumpet
 
 ![Ear Trumpet Screenshot](./Graphics/hero1.gif)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmeteorsnows%2FEarTrumpet.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmeteorsnows%2FEarTrumpet?ref=badge_shield)
 
 ## Features
 
@@ -40,3 +41,7 @@ Download EarTrumpet from the [Microsoft Store](https://www.microsoft.com/en-us/p
 - Rafael Rivera ([@WithinRafael](https://www.twitter.com/WithinRafael))
 - Dave Amenta ([@davux](https://www.twitter.com/davux))
 - [Contributors](https://github.com/File-New-Project/EarTrumpet/graphs/contributors)
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fmeteorsnows%2FEarTrumpet.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fmeteorsnows%2FEarTrumpet?ref=badge_large)
