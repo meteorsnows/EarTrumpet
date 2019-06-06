@@ -1,7 +1,7 @@
-﻿using Microsoft.Win32;
-using System.Globalization;
-using EarTrumpet.Extensions;
+﻿using EarTrumpet.Extensions;
+using Microsoft.Win32;
 using System;
+using System.Globalization;
 
 namespace EarTrumpet.DataModel
 {
@@ -11,9 +11,9 @@ namespace EarTrumpet.DataModel
 
         public static bool IsTransparencyEnabled => ReadDword(s_PersonalizeKey, "EnableTransparency");
         public static bool UseAccentColor => ReadDword(s_PersonalizeKey, "ColorPrevalence");
-        public static bool IsLightTheme => ReadDword(s_PersonalizeKey, "AppsUseLightTheme", 1);
+        public static bool IsLightTheme => ReadDword(s_PersonalizeKey, "AppsUseLightTheme", true);
         public static bool IsSystemLightTheme => LightThemeShim(ReadDword(s_PersonalizeKey, "SystemUsesLightTheme"));
-        public static bool UseDynamicScrollbars => ReadDword(@"Control Panel\Accessibility", "DynamicScrollbars", 1);
+        public static bool UseDynamicScrollbars => ReadDword(@"Control Panel\Accessibility", "DynamicScrollbars", true);
         public static bool UseAccentColorOnWindowBorders => ReadDword(@"Software\Microsoft\Windows\DWM", "ColorPrevalence");
         public static bool IsRTL => CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft;
 
@@ -24,17 +24,22 @@ namespace EarTrumpet.DataModel
                 using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
                 using (var subKey = baseKey.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion"))
                 {
-                    return (string)subKey.GetValue("BuildLabEx", "No BuildLabEx set");
+                    return (string)subKey?.GetValue("BuildLabEx");
                 }
             }
         }
 
-        private static bool ReadDword(string key, string valueName, int defaultValue = 0)
+        private static bool ReadDword(string key, string valueName, bool defaultValue = false)
         {
             using (var baseKey = RegistryKey.OpenBaseKey(RegistryHive.CurrentUser, RegistryView.Registry64))
             using (var subKey = baseKey.OpenSubKey(key))
             {
-                return subKey.GetValue<int>(valueName, defaultValue) > 0;
+                bool readValue = defaultValue;
+                if (subKey != null)
+                {
+                    readValue = subKey.GetValue<int>(valueName, defaultValue ? 1 : 0) > 0;
+                }
+                return readValue;
             }
         }
 
